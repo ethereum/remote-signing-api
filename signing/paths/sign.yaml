@@ -1,9 +1,9 @@
 post:
   tags:
     - 'Signing'
-  summary: 'Signs data for ETH2 BLS public key'
-  description: 'Signs data for the ETH2 BLS public key specified as part of the URL and returns the signature'
-  operationId: 'ETH2_SIGN'
+  summary: 'Signs data for BLS public key'
+  description: 'Signs data for the BLS public key specified as part of the URL and returns the signature'
+  operationId: 'SIGN'
   parameters:
     - name: 'identifier'
       in: 'path'

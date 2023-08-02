@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: 'ETH2 Remote Signing Api'
-  description: 'Sign Eth2 Artifacts'
+  title: 'Remote Signing API'
+  description: 'Remote Signing API for communication between remote signers and Ethereum validator clients.'
   version: 'v1.0.0'
   contact:
     name: Ethereum Github
@@ -14,14 +14,14 @@ servers:
   - url: "{server_url}"
     variables:
       server_url:
-        description: "key manager API url"
+        description: "Remote Signer API url"
         default: "https://public-mainnet-node.ethereum.org"
 
 tags:
   - name: Public Key
-    description: Endpoint for list of available ETH2 BLS Public Keys.
+    description: Endpoint for listing BLS Public Keys.
   - name: Signing
-    description: Endpoint for signing data for ETH2 BLS public key.
+    description: Endpoint for signing data using specified BLS public key.
 
 paths:
   /api/v1/eth2/sign/{identifier}:

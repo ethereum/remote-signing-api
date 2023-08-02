@@ -1,9 +1,9 @@
 get:
   tags:
     - 'Public Key'
-  summary: 'List of available ETH2 BLS Public Keys'
-  description: 'Returns a hex-encoded list of ETH2 BLS public keys for the private keys that have been loaded into Remote Signer.'
-  operationId: 'ETH2_LIST'
+  summary: 'List of available BLS Public Keys'
+  description: 'Returns a hex-encoded list of BLS public keys for the private keys that have been loaded into Remote Signer.'
+  operationId: 'PUBLIC_KEY_LIST'
   responses:
     '200':
       description: 'list of public keys'

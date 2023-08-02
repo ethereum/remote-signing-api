@@ -5,7 +5,7 @@
 API browser: [https://ethereum.github.io/remote-signing-api/](https://ethereum.github.io/remote-signing-api/)
 
 ## Outline
-This repository outlines standard remote signing application programming interface (APIs) for communication between remote key managers and Ethereum
+This repository outlines standard remote signing application programming interface (APIs) for communication between remote signers and Ethereum
 validator clients.
 
 Remote signing service allows validator clients to offload signing of validation duties (e.g  Attestations, BeaconBlocks) by managing security, slashing protection,
@@ -17,17 +17,17 @@ in place to restrict access only from validator clients. At the moment, only JSO
 The goal of this specification is to promote interoperability between various validator client implementations and remote signing services.
 
 ## Client support
-| Validator Clients | Status |
-| ----------------- | -------|
-| Prysm             |        |
-| Teku              |        |
-| Lighthouse        |        |
-| Nimbus            |        |
-| Lodestar          |        |
+| Validator Clients | Status           |
+| ----------------- | ---------------- |
+| Prysm             | Supported v1.0.0 |
+| Teku              | Supported v1.0.0 |
+| Lighthouse        |                  |
+| Nimbus            |                  |
+| Lodestar          |                  |
 
-| Remote Signing Service | Status |
-| ---------------------- | -------|
-| Web3Signer             |        |
+| Remote Signing Service | Status           |
+| ---------------------- | ---------------- |
+| Web3Signer             | Supported v1.0.0 |
 
 ## Running API Browser Locally
 
