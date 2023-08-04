@@ -30,6 +30,7 @@ post:
             - $ref: '../schemas.yaml#/components/schemas/SyncCommitteeSelectionProofSigning'
             - $ref: '../schemas.yaml#/components/schemas/SyncCommitteeContributionAndProofSigning'
             - $ref: '../schemas.yaml#/components/schemas/ValidatorRegistrationSigning'
+            - $ref: '../schemas.yaml#/components/schemas/BlobSidecarSigning'
           discriminator:
             propertyName: type
             mapping:
@@ -45,7 +46,27 @@ post:
               SYNC_COMMITTEE_SELECTION_PROOF: '../schemas.yaml#/components/schemas/SyncCommitteeSelectionProofSigning'
               SYNC_COMMITTEE_CONTRIBUTION_AND_PROOF: '../schemas.yaml#/components/schemas/SyncCommitteeContributionAndProofSigning'
               VALIDATOR_REGISTRATION: '../schemas.yaml#/components/schemas/ValidatorRegistrationSigning'
+              BLOB_SIDECAR: '../schemas.yaml#/components/schemas/BlobSidecarSigning'
         examples:
+          BLOB_SIDECAR:
+            value:
+              type: "BLOB_SIDECAR"
+              signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
+              fork_info:
+                fork:
+                  previous_version: "0x00000001"
+                  current_version: "0x00000001"
+                  epoch: "1"
+                genesis_validators_root: "0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673"
+              blob_sidecar:
+                block_root: "0x235bc3400c2839fd856a524871200bd5e362db615fc4565e1870ed9a2a936464"
+                index: "0"
+                slot: "0"
+                block_parent_root: "0x367cbd40ac7318427aadb97345a91fa2e965daf3158d7f1846f1306305f41bef"
+                proposer_index: "4666673844721362956"
+                blob_root: "0xfd18cf40cc907a739be483f1ca0ee23ad65cdd3df23205eabc6d660a75d1f54e"
+                kzg_commitment: "0xa759d8029a69d4fdd8b3996086e9722983977e4efc1f12f4098ea3d93e868a6ba759d8029a69d4fdd8b3996086e97229"
+                kzg_proof: "0xfd18cf40cc907a739be483f1ca0ee23ad65cdd3df23205eabc6d660a75d1f54efd18cf40cc907a739be483f1ca0ee23a"
           BLOCK_V2 (CAPELLA):
             value:
               type: "BLOCK_V2"

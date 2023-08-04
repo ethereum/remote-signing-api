@@ -292,6 +292,33 @@ components:
           type: "array"
           items:
             $ref: "#/components/schemas/SignedVoluntaryExit"
+    BlobSidecar:
+      type: "object"
+      properties:
+        block_root:
+          type: string
+          description: Bytes32 hexadecimal
+        index:
+          type: string
+          format: uint64
+        slot:
+          type: string
+          format: uint64
+        block_parent_root:
+          type: string
+          description: Bytes32 hexadecimal
+        proposer_index:
+          type: string
+          format: uint64
+        blob_root:
+          type: string
+          description: Bytes32 hexadecimal
+        kzg_commitment:
+          type: string
+          description: Bytes48 hexadecimal
+        kzg_proof:
+          type: string
+          description: Bytes48 hexadecimal
     Eth1Data:
       type: "object"
       properties:
@@ -474,6 +501,16 @@ components:
       allOf:
         - $ref: '#/components/schemas/Signing'
         - $ref: '#/components/schemas/BeaconBlockRequest'
+        - type: object
+          properties:
+            type:
+              type: "string"
+              description: Signing Request type
+              example: 'BLOCK_V2'
+    BlobSidecarSigning:
+      allOf:
+        - $ref: '#/components/schemas/Signing'
+        - $ref: '#/components/schemas/BlobSidecar'
         - type: object
           properties:
             type:
