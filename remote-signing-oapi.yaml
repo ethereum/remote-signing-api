@@ -1,0 +1,30 @@
+openapi: 3.0.3
+info:
+  title: 'Remote Signing API'
+  description: 'Remote Signing API for communication between remote signers and Ethereum validator clients.'
+  version: 'v1.0.0'
+  contact:
+    name: Ethereum Github
+    url: https://github.com/ethereum/remote-signing-api/issues
+  license:
+    name: "Creative Commons Zero v1.0 Universal"
+    url: "https://creativecommons.org/publicdomain/zero/1.0/"
+
+servers:
+  - url: "{server_url}"
+    variables:
+      server_url:
+        description: "Remote Signer API url"
+        default: "https://public-mainnet-node.ethereum.org"
+
+tags:
+  - name: Public Key
+    description: Endpoint for listing BLS Public Keys.
+  - name: Signing
+    description: Endpoint for signing data using specified BLS public key.
+
+paths:
+  /api/v1/eth2/sign/{identifier}:
+    $ref: './signing/paths/sign.yaml'
+  /api/v1/eth2/publicKeys:
+    $ref: './signing/paths/public_keys.yaml'
