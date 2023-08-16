@@ -13,7 +13,7 @@ jobs:
         if: ${{ false }}
         uses: vaibhav-jain/spectral-action/@v2.6.1
         with:
-          file_path: keymanager-oapi.yaml
+          file_path: remote-signing-oapi.yaml
 
       - name: Bundle spec
         uses: mpetrunic/swagger-cli-action@v1.0.0
