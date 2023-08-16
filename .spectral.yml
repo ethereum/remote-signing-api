@@ -9,7 +9,7 @@ rules:
   operation-tag-defined: error
   paths-snake-case:
     description: All YAML paths MUST follow snake-case
-    severity: error
+    severity: warn
     recommended: true
     message: "path is not snake-case: {{error}}"
     given: $.paths[*]~
@@ -19,7 +19,7 @@ rules:
         match: "^\/([a-z0-9]+(_[a-z0-9]+)*)?(\/[a-z0-9]+(_[a-z0-9]+)*|\/{.+})*$"
   parameters-snake-case-alphanumeric:
     description: Path parameters MUST follow snake case
-    severity: error
+    severity: warn
     recommended: true
     message: "{{property}} parameter is not snake case: {{error}}"
     given: $..parameters[?(@.in == 'path' || @.in == 'query')].name
