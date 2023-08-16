@@ -7,13 +7,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      # Temporarily disable linting in the first pass
+      - uses: actions/checkout@v3
+
       - name: Lint spec
-        if: ${{ false }}
         uses: vaibhav-jain/spectral-action/@v2.6.1
         with:
-          file_path: keymanager-oapi.yaml
+          file_path: remote-signing-oapi.yaml
 
       - name: Bundle spec
         uses: mpetrunic/swagger-cli-action@v1.0.0
