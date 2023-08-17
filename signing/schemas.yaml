@@ -510,13 +510,18 @@ components:
     BlobSidecarSigning:
       allOf:
         - $ref: '#/components/schemas/Signing'
-        - $ref: '#/components/schemas/BlobSidecar'
         - type: object
           properties:
             type:
               type: "string"
               description: Signing Request type
-              example: 'BLOCK_V2'
+              example: 'BLOB_SIDECAR'
+            blob_sidecar:
+              $ref: '#/components/schemas/BlobSidecar'
+          required:
+            - type
+            - blob_sidecar
+
     BeaconBlockRequest:
       type: object
       properties:
