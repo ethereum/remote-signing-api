@@ -1846,15 +1846,15 @@ paths:
                 value:
                   type: BLOCK
                   signingRoot: '0xf6ab1a0a4a712f544f99b53cb8c2c2625859a134fb5c9f1b2cb96e13dd88bd62'
-                  forkInfo:
+                  fork_info:
                     fork:
                       previousVersion: '0x00000001'
                       currentVersion: '0x00000001'
-                      epoch: 1
-                    genesisValidatorsRoot: '0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673'
+                      epoch: '1'
+                    genesis_validators_root: '0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673'
                   block:
-                    slot: 0
-                    proposerIndex: 5
+                    slot: '0'
+                    proposerIndex: '5'
                     parentRoot: '0xb2eedb01adbd02c828d5eec09b4c70cbba12ffffba525ebf48aca33028e8ad89'
                     stateRoot: '0x0000000000000000000000000000000000000000000000000000000000000000'
                     body:
@@ -1893,14 +1893,14 @@ paths:
                 value:
                   type: AGGREGATION_SLOT
                   signingRoot: '0x1fb90dd6e8b2670e6949347bc4eaacd37f9b6cc6e42c559973e362c800e853b9'
-                  forkInfo:
+                  fork_info:
                     fork:
                       previousVersion: '0x00000001'
                       currentVersion: '0x00000001'
-                      epoch: 1
-                    genesisValidatorsRoot: '0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673'
-                  aggregationSlot:
-                    slot: 119
+                      epoch: '1'
+                    genesis_validators_root: '0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673'
+                  aggregation_slot:
+                    slot: '119'
               AGGREGATE_AND_PROOF:
                 value:
                   type: AGGREGATE_AND_PROOF
