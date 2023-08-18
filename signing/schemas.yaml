@@ -16,7 +16,7 @@ components:
           required:
             - fork
             - genesis_validators_root
-        signingRoot:
+        signing_root:
           type: "string"
           description: 'signing root for optional verification if field present'
           example: '0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc'
@@ -97,7 +97,7 @@ components:
           type: "string"
           description: 'Signing Request type'
           example: 'DEPOSIT'
-        signingRoot:
+        signing_root:
           description: 'signing root for optional verification if field present'
           type: "string"
         deposit:
@@ -193,7 +193,7 @@ components:
               type: "string"
               description: Signing Request type
               example: 'VALIDATOR_REGISTRATION'
-            signingRoot:
+            signing_root:
               description: 'signing root for optional verification if field present'
               type: "string"
             validator_registration:
