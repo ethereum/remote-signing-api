@@ -23,7 +23,7 @@ The goal of this specification is to promote interoperability between various va
 | Teku              | Supported v1.0.0 |
 | Lighthouse        |                  |
 | Nimbus            |                  |
-| Lodestar          |                  |
+| Lodestar          | Supported v1.0.0 |
 
 | Remote Signing Service | Status           |
 | ---------------------- | ---------------- |
