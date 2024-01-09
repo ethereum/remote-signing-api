@@ -16,10 +16,6 @@ components:
                 type: "string"
                 description: Generalized index of the field
                 example: "401"
-              value:
-                type: "string"
-                description: SSZ hash of the field
-                example: ""
             required:
               - proof
               - index
