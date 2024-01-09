@@ -49,6 +49,7 @@ post:
           BLOCK_V2 (DENEB):
             value:
               type: "BLOCK_V2"
+              proofs: [{proof : "", index : "401"}]
               signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
               fork_info:
                 fork:
@@ -67,6 +68,7 @@ post:
           BLOCK_V2 (CAPELLA):
             value:
               type: "BLOCK_V2"
+              proofs: [{proof : "", index : "401"}]
               signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
               fork_info:
                 fork:

@@ -1,5 +1,28 @@
 components:
   schemas:
+    Verify:
+      type: "object"
+      properties:
+        proofs:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              proof:
+                type: "string"
+                description: Merkle proof against the block body root included in the request 
+                example: ""
+              index:
+                type: "string"
+                description: Generalized index of the field
+                example: "401"
+              value:
+                type: "string"
+                description: SSZ hash of the field
+                example: ""
+            required:
+              - proof
+              - index
     Signing:
       type: "object"
       properties:
@@ -472,6 +495,7 @@ components:
           type: string
     BeaconBlockSigning:
       allOf:
+        - $ref: '#/components/schemas/Verify'
         - $ref: '#/components/schemas/Signing'
         - $ref: '#/components/schemas/BeaconBlockRequest'
         - type: object
