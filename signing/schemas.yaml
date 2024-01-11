@@ -9,9 +9,10 @@ components:
             type: "object"
             properties:
               proof:
-                type: "string"
-                description: Merkle proof against the block body root included in the request 
-                example: ""
+                type: "array"
+                description: Merkle proof against the block body root included in the request
+                items:
+                  $ref: "#/components/schemas/Proof"
               index:
                 type: "string"
                 description: Generalized index of the field
@@ -19,6 +20,9 @@ components:
             required:
               - proof
               - index
+    Proof:
+      type: "string"
+      example: "0x779b271e405f605a48317e56cac7d45363866a55dd4e0895f4df104d09e7a192"
     Signing:
       type: "object"
       properties:
@@ -489,6 +493,8 @@ components:
           format: uint64
         pubkey:
           type: string
+    
+    
     BeaconBlockSigning:
       allOf:
         - $ref: '#/components/schemas/Verify'

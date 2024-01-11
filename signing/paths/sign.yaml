@@ -49,7 +49,17 @@ post:
           BLOCK_V2 (DENEB):
             value:
               type: "BLOCK_V2"
-              proofs: [{proof : "", index : "401"}]
+              proofs:
+                - index: "401"
+                  proof: 
+                  - "0x779b271e405f605a48317e56cac7d45363866a55dd4e0895f4df104d09e7a192"
+                  - "0x644d4588f408c24fe29e8ca8b668d6cffcedd9496682cda1ad564532f67f58f9"
+                  - "0xb4a81f606555f57fa28b1a394acfc79a2c4b4a12cb406fc4efba434833732322"
+                  - "0xdc07f92f1f0079b9724556f0e74b30b816b20beb9dd98629a5d85d7ff1ee7276"
+                  - "0xface4c8dc79e2dad391b534b69530d4470eb551927548555854d2022fe2b22a0"
+                  - "0x336488033fe5f3ef4ccc12af07b9370b92e553e35ecb4a337a1b1c0e4afe1e0e"
+                  - "0xdb56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71"
+                  - "0x60ba834cd8f04bb6edf3276fc70d9731148ee1c8e1efd6b7c685f82e721176ef"
               signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
               fork_info:
                 fork:
@@ -66,9 +76,19 @@ post:
                   state_root: "0xfd18cf40cc907a739be483f1ca0ee23ad65cdd3df23205eabc6d660a75d1f54e"
                   body_root: "0xa759d8029a69d4fdd8b3996086e9722983977e4efc1f12f4098ea3d93e868a6b"
           BLOCK_V2 (CAPELLA):
-            value:
+            value:   
               type: "BLOCK_V2"
-              proofs: [{proof : "", index : "401"}]
+              proofs:
+                - index: "401"
+                  proof: 
+                  - "0x779b271e405f605a48317e56cac7d45363866a55dd4e0895f4df104d09e7a192"
+                  - "0x644d4588f408c24fe29e8ca8b668d6cffcedd9496682cda1ad564532f67f58f9"
+                  - "0xb4a81f606555f57fa28b1a394acfc79a2c4b4a12cb406fc4efba434833732322"
+                  - "0xdc07f92f1f0079b9724556f0e74b30b816b20beb9dd98629a5d85d7ff1ee7276"
+                  - "0xface4c8dc79e2dad391b534b69530d4470eb551927548555854d2022fe2b22a0"
+                  - "0x336488033fe5f3ef4ccc12af07b9370b92e553e35ecb4a337a1b1c0e4afe1e0e"
+                  - "0xdb56114e00fdd4c1f85c892bf35ac9a89289aaecb1ebd0a96cde606a748b5d71"
+                  - "0x60ba834cd8f04bb6edf3276fc70d9731148ee1c8e1efd6b7c685f82e721176ef"
               signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
               fork_info:
                 fork:
