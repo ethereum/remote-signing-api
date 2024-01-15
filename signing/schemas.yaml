@@ -494,8 +494,6 @@ components:
           format: uint64
         pubkey:
           type: string
-    
-    
     BeaconBlockSigning:
       allOf:
         - $ref: '#/components/schemas/Verifying'
@@ -507,7 +505,6 @@ components:
               type: "string"
               description: Signing Request type
               example: 'BLOCK_V2'
-
     BeaconBlockRequest:
       type: object
       properties:
