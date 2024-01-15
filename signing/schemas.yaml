@@ -1,10 +1,11 @@
 components:
   schemas:
-    Verify:
+    Verifying:
       type: "object"
       properties:
         proofs:
           type: "array"
+          nullable: true
           items:
             type: "object"
             properties:
@@ -497,7 +498,7 @@ components:
     
     BeaconBlockSigning:
       allOf:
-        - $ref: '#/components/schemas/Verify'
+        - $ref: '#/components/schemas/Verifying'
         - $ref: '#/components/schemas/Signing'
         - $ref: '#/components/schemas/BeaconBlockRequest'
         - type: object
