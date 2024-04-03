@@ -14,21 +14,8 @@ components:
                 nullable: true
                 description: Signature from Relayer
                 example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-              proof:
-                type: "array"
-                description: Merkle proof against the block body root included in the request
-                items:
-                  $ref: "#/components/schemas/Proof"
-              index:
-                type: "string"
-                description: Generalized index of the field
-                example: "401"
             required:
-              - proof
-              - index
-    Proof:
-      type: "string"
-      example: "0x779b271e405f605a48317e56cac7d45363866a55dd4e0895f4df104d09e7a192"
+              - relayer_signature
     Signing:
       type: "object"
       properties:
