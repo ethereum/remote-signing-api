@@ -1,5 +1,29 @@
 components:
   schemas:
+    Verifying:
+      type: "object"
+      properties:
+        proofs:
+          type: "array"
+          nullable: true
+          items:
+            type: "object"
+            properties:
+              proof:
+                type: "array"
+                description: Merkle proof against the block body root included in the request
+                items:
+                  $ref: "#/components/schemas/Proof"
+              index:
+                type: "string"
+                description: Generalized index of the field
+                example: "401"
+            required:
+              - proof
+              - index
+    Proof:
+      type: "string"
+      example: "0x779b271e405f605a48317e56cac7d45363866a55dd4e0895f4df104d09e7a192"
     Signing:
       type: "object"
       properties:
@@ -472,6 +496,7 @@ components:
           type: string
     BeaconBlockSigning:
       allOf:
+        - $ref: '#/components/schemas/Verifying'
         - $ref: '#/components/schemas/Signing'
         - $ref: '#/components/schemas/BeaconBlockRequest'
         - type: object
@@ -480,7 +505,6 @@ components:
               type: "string"
               description: Signing Request type
               example: 'BLOCK_V2'
-
     BeaconBlockRequest:
       type: object
       properties:
