@@ -49,6 +49,8 @@ post:
           BLOCK_V2 (DENEB):
             value:
               type: "BLOCK_V2"
+              proofs:
+                - relayer_signature: "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"
               signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
               fork_info:
                 fork:
@@ -65,7 +67,7 @@ post:
                   state_root: "0xfd18cf40cc907a739be483f1ca0ee23ad65cdd3df23205eabc6d660a75d1f54e"
                   body_root: "0xa759d8029a69d4fdd8b3996086e9722983977e4efc1f12f4098ea3d93e868a6b"
           BLOCK_V2 (CAPELLA):
-            value:
+            value:   
               type: "BLOCK_V2"
               signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
               fork_info:

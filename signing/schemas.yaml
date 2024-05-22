@@ -1,5 +1,21 @@
 components:
   schemas:
+    Verifying:
+      type: "object"
+      properties:
+        proofs:
+          type: "array"
+          nullable: true
+          items:
+            type: "object"
+            properties:
+              relayer_signature: 
+                type: "string"
+                nullable: true
+                description: Signature from Relayer
+                example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+            required:
+              - relayer_signature
     Signing:
       type: "object"
       properties:
@@ -472,6 +488,7 @@ components:
           type: string
     BeaconBlockSigning:
       allOf:
+        - $ref: '#/components/schemas/Verifying'
         - $ref: '#/components/schemas/Signing'
         - $ref: '#/components/schemas/BeaconBlockRequest'
         - type: object
@@ -480,7 +497,6 @@ components:
               type: "string"
               description: Signing Request type
               example: 'BLOCK_V2'
-
     BeaconBlockRequest:
       type: object
       properties:
