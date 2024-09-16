@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: 'Remote Signing API'
   description: 'Remote Signing API for communication between remote signers and Ethereum validator clients.'
-  version: 'v1.1.0'
+  version: 'v1.2.0'
   contact:
     name: Ethereum Github
     url: https://github.com/ethereum/remote-signing-api/issues
