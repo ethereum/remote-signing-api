@@ -48,6 +48,7 @@ components:
             - type
             - aggregation_slot
     AggregateAndProofSigning:
+      description: '** DEPRECATED ** See AggregateAndProofSigningV2.'
       allOf:
         - $ref: '#/components/schemas/Signing'
         - type: object
@@ -57,10 +58,122 @@ components:
               description: Signing Request type
               example: 'AGGREGATE_AND_PROOF'
             aggregate_and_proof:
-              $ref: "#/components/schemas/AggregateAndProof"
+              $ref: "#/components/schemas/AggregateAndProofPhase0"
           required:
             - type
             - aggregate_and_proof
+    AggregateAndProofSigningV2:
+      allOf:
+        - $ref: '#/components/schemas/Signing'
+        - $ref: '#/components/schemas/AggregateAndProofRequest'
+        - type: object
+          properties:
+            type:
+              type: "string"
+              description: Signing Request type
+              example: 'AGGREGATE_AND_PROOF_V2'
+          required:
+            - type
+    AggregateAndProofRequest:
+      type: object
+      properties:
+        aggregate_and_proof:
+          oneOf:
+            - $ref: '#/components/schemas/AggregateAndProofRequestPhase0'
+            - $ref: '#/components/schemas/AggregateAndProofRequestAltair'
+            - $ref: '#/components/schemas/AggregateAndProofRequestBellatrix'
+            - $ref: '#/components/schemas/AggregateAndProofRequestCapella'
+            - $ref: '#/components/schemas/AggregateAndProofRequestDeneb'
+            - $ref: '#/components/schemas/AggregateAndProofRequestElectra'
+          discriminator:
+            propertyName: version
+            mapping:
+              PHASE0: '#/components/schemas/AggregateAndProofRequestPhase0'
+              ALTAIR: '#/components/schemas/AggregateAndProofRequestAltair'
+              BELLATRIX: '#/components/schemas/AggregateAndProofRequestBellatrix'
+              CAPELLA: '#/components/schemas/AggregateAndProofRequestCapella'
+              DENEB: '#/components/schemas/AggregateAndProofRequestDeneb'
+              ELECTRA: '#/components/schemas/AggregateAndProofRequestElectra'
+      required:
+        - aggregate_and_proof
+    AggregateAndProofRequestPhase0:
+      type: object
+      properties:
+        version:
+          type: string
+          enum:
+            - PHASE0
+          description: 'version to identify AggregateAndProof request type.'
+        data:
+          $ref: "#/components/schemas/AggregateAndProofPhase0"
+      required:
+        - version
+        - data
+    AggregateAndProofRequestAltair:
+      type: object
+      properties:
+        version:
+          type: string
+          enum:
+            - ALTAIR
+          description: 'version to identify AggregateAndProof request type.'
+        data:
+          $ref: "#/components/schemas/AggregateAndProofPhase0"
+      required:
+        - version
+        - data
+    AggregateAndProofRequestBellatrix:
+      type: object
+      properties:
+        version:
+          type: string
+          enum:
+            - BELLATRIX
+          description: 'version to identify AggregateAndProof request type.'
+        data:
+          $ref: "#/components/schemas/AggregateAndProofPhase0"
+      required:
+        - version
+        - data
+    AggregateAndProofRequestCapella:
+      type: object
+      properties:
+        version:
+          type: string
+          enum:
+            - CAPELLA
+          description: 'version to identify AggregateAndProof request type.'
+        data:
+          $ref: "#/components/schemas/AggregateAndProofPhase0"
+      required:
+        - version
+        - data
+    AggregateAndProofRequestDeneb:
+      type: object
+      properties:
+        version:
+          type: string
+          enum:
+            - DENEB
+          description: 'version to identify AggregateAndProof request type.'
+        data:
+          $ref: "#/components/schemas/AggregateAndProofPhase0"
+      required:
+        - version
+        - data
+    AggregateAndProofRequestElectra:
+      type: object
+      properties:
+        version:
+          type: string
+          enum:
+            - ELECTRA
+          description: 'version to identify AggregateAndProof request type.'
+        data:
+          $ref: "#/components/schemas/AggregateAndProofElectra"
+      required:
+        - version
+        - data
     AttestationSigning:
       allOf:
         - $ref: '#/components/schemas/Signing'
@@ -283,7 +396,7 @@ components:
         attestations:
           type: "array"
           items:
-            $ref: "#/components/schemas/Attestation"
+            $ref: "#/components/schemas/AttestationPhase0"
         deposits:
           type: "array"
           items:
@@ -316,7 +429,7 @@ components:
           "$ref": "#/components/schemas/IndexedAttestation"
         attestation_2:
           "$ref": "#/components/schemas/IndexedAttestation"
-    Attestation:
+    AttestationPhase0:
       type: "object"
       properties:
         aggregation_bits:
@@ -324,6 +437,17 @@ components:
         data:
           $ref: "#/components/schemas/AttestationData"
         signature:
+          type: "string"
+    AttestationElectra:
+      type: "object"
+      properties:
+        aggregation_bits:
+          type: "string"
+        data:
+          $ref: "#/components/schemas/AttestationData"
+        signature:
+          type: "string"
+        committee_bits:
           type: "string"
     Deposit:
       type: "object"
@@ -398,14 +522,25 @@ components:
         body_root:
           type: string
           description: Bytes32 hexadecimal
-    AggregateAndProof:
+    AggregateAndProofPhase0:
       type: object
       properties:
         aggregator_index:
           type: string
           format: uint64
         aggregate:
-          "$ref": "#/components/schemas/Attestation"
+          "$ref": "#/components/schemas/AttestationPhase0"
+        selection_proof:
+          type: string
+          description: Bytes96 hexadecimal
+    AggregateAndProofElectra:
+      type: object
+      properties:
+        aggregator_index:
+          type: string
+          format: uint64
+        aggregate:
+          "$ref": "#/components/schemas/AttestationElectra"
         selection_proof:
           type: string
           description: Bytes96 hexadecimal
@@ -480,6 +615,8 @@ components:
               type: "string"
               description: Signing Request type
               example: 'BLOCK_V2'
+          required:
+            - type
 
     BeaconBlockRequest:
       type: object
