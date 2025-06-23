@@ -17,17 +17,18 @@ in place to restrict access only from validator clients. At the moment, only JSO
 The goal of this specification is to promote interoperability between various validator client implementations and remote signing services.
 
 ## Client support
-| Validator Clients | Status           |
-| ----------------- | ---------------- |
-| Prysm             | Supported v1.0.0 |
-| Teku              | Supported v1.0.0 |
-| Lighthouse        |                  |
-| Nimbus            |                  |
-| Lodestar          | Supported v1.0.0 |
+| Validator Clients | Status    |
+| ----------------- | --------- |
+| Prysm             | Supported |
+| Teku              | Supported |
+| Lighthouse        | Supported |
+| Nimbus            | Supported |
+| Lodestar          | Supported |
+| Vero              | Supported |
 
-| Remote Signing Service | Status           |
-| ---------------------- | ---------------- |
-| Web3Signer             | Supported v1.0.0 |
+| Remote Signing Service | Status    |
+| ---------------------- | --------- |
+| Web3Signer             | Supported |
 
 ## Running API Browser Locally
 
