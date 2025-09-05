@@ -188,7 +188,7 @@ components:
             - FULU
           description: 'version to identify AggregateAndProof request type.'
         data:
-          $ref: "#/components/schemas/AggregateAndProofFulu"
+          $ref: "#/components/schemas/AggregateAndProofElectra"
       required:
         - version
         - data
@@ -476,17 +476,6 @@ components:
           type: "string"
         committee_bits:
           type: "string"
-    AttestationFulu:
-      type: "object"
-      properties:
-        aggregation_bits:
-          type: "string"
-        data:
-          $ref: "#/components/schemas/AttestationData"
-        signature:
-          type: "string"
-        committee_bits:
-          type: "string"
     Deposit:
       type: "object"
       properties:
@@ -582,17 +571,6 @@ components:
         selection_proof:
           type: string
           description: Bytes96 hexadecimal
-    AggregateAndProofFulu:
-      type: object
-      properties:
-        aggregator_index:
-          type: string
-          format: uint64
-        aggregate:
-          "$ref": "#/components/schemas/AttestationFulu"
-        selection_proof:
-          type: string
-          description: Bytes96 hexadecimal
     SyncCommitteeMessage:
       type: object
       properties:
@@ -678,8 +656,7 @@ components:
             - $ref: '#/components/schemas/BlockRequestBellatrix'
             - $ref: '#/components/schemas/BlockRequestCapella'
             - $ref: '#/components/schemas/BlockRequestDeneb'
-            - $ref: '#/components/schemas/BlockRequestElectra'
-            - $ref: '#/components/schemas/BlockRequestFulu'
+            - $ref: '#/components/schemas/BlockRequestElectraOrFulu'
           discriminator:
             propertyName: version
             mapping:
@@ -688,8 +665,8 @@ components:
               BELLATRIX: '#/components/schemas/BlockRequestBellatrix'
               CAPELLA: '#/components/schemas/BlockRequestCapella'
               DENEB: '#/components/schemas/BlockRequestDeneb'
-              ELECTRA: '#/components/schemas/BlockRequestElectra'
-              FULU: '#/components/schemas/BlockRequestFulu'
+              ELECTRA: '#/components/schemas/BlockRequestElectraOrFulu'
+              FULU: '#/components/schemas/BlockRequestElectraOrFulu'
       required:
         - beacon_block
     BlockRequestPhase0:
@@ -757,25 +734,13 @@ components:
       required:
         - version
         - block_header
-    BlockRequestElectra:
+    BlockRequestElectraOrFulu:
       type: object
       properties:
         version:
           type: string
           enum:
             - ELECTRA
-          description: 'version to identify block request type.'
-        block_header:
-          $ref: "#/components/schemas/BeaconBlockHeader"
-      required:
-        - version
-        - block_header
-    BlockRequestFulu:
-      type: object
-      properties:
-        version:
-          type: string
-          enum:
             - FULU
           description: 'version to identify block request type.'
         block_header:
