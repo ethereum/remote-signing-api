@@ -87,8 +87,7 @@ components:
             - $ref: '#/components/schemas/AggregateAndProofRequestBellatrix'
             - $ref: '#/components/schemas/AggregateAndProofRequestCapella'
             - $ref: '#/components/schemas/AggregateAndProofRequestDeneb'
-            - $ref: '#/components/schemas/AggregateAndProofRequestElectra'
-            - $ref: '#/components/schemas/AggregateAndProofRequestFulu'
+            - $ref: '#/components/schemas/AggregateAndProofRequestElectraOrFulu'
           discriminator:
             propertyName: version
             mapping:
@@ -97,8 +96,8 @@ components:
               BELLATRIX: '#/components/schemas/AggregateAndProofRequestBellatrix'
               CAPELLA: '#/components/schemas/AggregateAndProofRequestCapella'
               DENEB: '#/components/schemas/AggregateAndProofRequestDeneb'
-              ELECTRA: '#/components/schemas/AggregateAndProofRequestElectra'
-              FULU: '#/components/schemas/AggregateAndProofRequestFulu'
+              ELECTRA: '#/components/schemas/AggregateAndProofRequestElectraOrFulu'
+              FULU: '#/components/schemas/AggregateAndProofRequestElectraOrFulu'
       required:
         - aggregate_and_proof
     AggregateAndProofRequestPhase0:
@@ -166,25 +165,13 @@ components:
       required:
         - version
         - data
-    AggregateAndProofRequestElectra:
+    AggregateAndProofRequestElectraOrFulu:
       type: object
       properties:
         version:
           type: string
           enum:
             - ELECTRA
-          description: 'version to identify AggregateAndProof request type.'
-        data:
-          $ref: "#/components/schemas/AggregateAndProofElectra"
-      required:
-        - version
-        - data
-    AggregateAndProofRequestFulu:
-      type: object
-      properties:
-        version:
-          type: string
-          enum:
             - FULU
           description: 'version to identify AggregateAndProof request type.'
         data:
