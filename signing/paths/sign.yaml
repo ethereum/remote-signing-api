@@ -48,6 +48,24 @@ post:
               SYNC_COMMITTEE_CONTRIBUTION_AND_PROOF: '../schemas.yaml#/components/schemas/SyncCommitteeContributionAndProofSigning'
               VALIDATOR_REGISTRATION: '../schemas.yaml#/components/schemas/ValidatorRegistrationSigning'
         examples:
+          BLOCK_V2 (FULU):
+            value:
+              type: "BLOCK_V2"
+              signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
+              fork_info:
+                fork:
+                  previous_version: "0x00000001"
+                  current_version: "0x00000001"
+                  epoch: "1"
+                genesis_validators_root: "0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673"
+              beacon_block:
+                version: "FULU"
+                block_header:
+                  slot: "0"
+                  proposer_index: "4666673844721362956"
+                  parent_root: "0x367cbd40ac7318427aadb97345a91fa2e965daf3158d7f1846f1306305f41bef"
+                  state_root: "0xfd18cf40cc907a739be483f1ca0ee23ad65cdd3df23205eabc6d660a75d1f54e"
+                  body_root: "0xa759d8029a69d4fdd8b3996086e9722983977e4efc1f12f4098ea3d93e868a6b"
           BLOCK_V2 (ELECTRA):
             value:
               type: "BLOCK_V2"
@@ -495,6 +513,35 @@ post:
                 genesis_validators_root: '0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673'
               aggregation_slot:
                 slot: "119"
+          AGGREGATE_AND_PROOF_V2 (FULU):
+            value:
+              type: "AGGREGATE_AND_PROOF_V2"
+              signingRoot: "0x247535806f76143fe4798427b2a79b85340c1a029a9e08581995b60e4e45c9e0"
+              fork_info:
+                fork:
+                  previous_version: "0x00000001"
+                  current_version: "0x00000001"
+                  epoch: "1"
+                genesis_validators_root: "0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673"
+              aggregate_and_proof:
+                version: "FULU"
+                data:
+                  aggregator_index: "1"
+                  aggregate:
+                    aggregation_bits: "0x0000000000000000000000000000000000000000000101"
+                    data:
+                      slot: "0"
+                      index: "0"
+                      beacon_block_root: "0x100814c335d0ced5014cfa9d2e375e6d9b4e197381f8ce8af0473200fdc917fd"
+                      source:
+                        epoch: "0"
+                        root: "0x0000000000000000000000000000000000000000000000000000000000000000"
+                      target:
+                        epoch: "0"
+                        root: "0x100814c335d0ced5014cfa9d2e375e6d9b4e197381f8ce8af0473200fdc917fd"
+                    signature: "0xa627242e4a5853708f4ebf923960fb8192f93f2233cd347e05239d86dd9fb66b721ceec1baeae6647f498c9126074f1101a87854d674b6eebc220fd8c3d8405bdfd8e286b707975d9e00a56ec6cbbf762f23607d490f0bbb16c3e0e483d51875"
+                    committee_bits: "0x0000000000000001"
+                  selection_proof: "0xa63f73a03f1f42b1fd0a988b614d511eb346d0a91c809694ef76df5ae021f0f144d64e612d735bc8820950cf6f7f84cd0ae194bfe3d4242fe79688f83462e3f69d9d33de71aab0721b7dab9d6960875e5fdfd26b171a75fb51af822043820c47"
           AGGREGATE_AND_PROOF_V2 (ELECTRA):
             value:
               type: "AGGREGATE_AND_PROOF_V2"
