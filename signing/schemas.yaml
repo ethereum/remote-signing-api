@@ -328,6 +328,11 @@ components:
       allOf:
         - type: object
           properties:
+            genesis_fork_version:
+              type: 'string'
+              description: 'fork version at genesis'
+              pattern: "^0x[a-fA-F0-9]{8}$"
+              example: '0x00000001'
             type:
               type: "string"
               description: Signing Request type
