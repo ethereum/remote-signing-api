@@ -1,5 +1,173 @@
 components:
   schemas:
+    Uint64:
+      type: string
+      format: uint64
+      pattern: '^(0|[1-9][0-9]*)$'
+      description: Unsigned 64-bit integer encoded as a base-10 JSON string.
+      example: '1'
+    Root:
+      type: string
+      pattern: '^0x[a-fA-F0-9]{64}$'
+      description: Bytes32 encoded as 0x-prefixed hexadecimal.
+      example: '0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc'
+    PublicKey:
+      type: string
+      pattern: '^0x[a-fA-F0-9]{96}$'
+      description: Compressed BLS public key encoded as 0x-prefixed hexadecimal.
+      example: '0x989d34725a2bfc3f15105f3f5fc8741f436c25ee1ee4f948e425d6bcb8c56bce6e06c269635b7e985a7ffa639e2409bf'
+    Signature:
+      type: string
+      pattern: '^0x[a-fA-F0-9]{192}$'
+      description: Compressed BLS signature encoded as 0x-prefixed hexadecimal.
+      example: '0xb3baa751d0a9132cfe93e4e3d5ff9075111100e3789dca219ade5a24d27e19d16b3353149da1833e9b691bb38634e8dc04469be7032132906c927d7e1a49b414730612877bc6b2810c8f202daf793d1ab0d6b5cb21d52f9e52e883859887a5d9'
+    SigningRequest:
+      oneOf:
+        - $ref: '#/components/schemas/AggregationSlotSigning'
+        - $ref: '#/components/schemas/AggregateAndProofSigning'
+        - $ref: '#/components/schemas/AggregateAndProofSigningV2'
+        - $ref: '#/components/schemas/AttestationSigning'
+        - $ref: '#/components/schemas/BlockSigning'
+        - $ref: '#/components/schemas/BeaconBlockSigning'
+        - $ref: '#/components/schemas/DepositSigning'
+        - $ref: '#/components/schemas/GenericSigning'
+        - $ref: '#/components/schemas/RandaoRevealSigning'
+        - $ref: '#/components/schemas/VoluntaryExitSigning'
+        - $ref: '#/components/schemas/SyncCommitteeMessageSigning'
+        - $ref: '#/components/schemas/SyncCommitteeSelectionProofSigning'
+        - $ref: '#/components/schemas/SyncCommitteeContributionAndProofSigning'
+        - $ref: '#/components/schemas/ValidatorRegistrationSigning'
+      discriminator:
+        propertyName: type
+        mapping:
+          AGGREGATION_SLOT: '#/components/schemas/AggregationSlotSigning'
+          AGGREGATE_AND_PROOF: '#/components/schemas/AggregateAndProofSigning'
+          AGGREGATE_AND_PROOF_V2: '#/components/schemas/AggregateAndProofSigningV2'
+          ATTESTATION: '#/components/schemas/AttestationSigning'
+          BLOCK: '#/components/schemas/BlockSigning'
+          BLOCK_V2: '#/components/schemas/BeaconBlockSigning'
+          DEPOSIT: '#/components/schemas/DepositSigning'
+          GENERIC: '#/components/schemas/GenericSigning'
+          RANDAO_REVEAL: '#/components/schemas/RandaoRevealSigning'
+          VOLUNTARY_EXIT: '#/components/schemas/VoluntaryExitSigning'
+          SYNC_COMMITTEE_MESSAGE: '#/components/schemas/SyncCommitteeMessageSigning'
+          SYNC_COMMITTEE_SELECTION_PROOF: '#/components/schemas/SyncCommitteeSelectionProofSigning'
+          SYNC_COMMITTEE_CONTRIBUTION_AND_PROOF: '#/components/schemas/SyncCommitteeContributionAndProofSigning'
+          VALIDATOR_REGISTRATION: '#/components/schemas/ValidatorRegistrationSigning'
+    BatchableSigningRequest:
+      description: |
+        Signing requests whose complete signed object can be shared by more
+        than one validator key.
+      oneOf:
+        - $ref: '#/components/schemas/AggregationSlotSigning'
+        - $ref: '#/components/schemas/AttestationSigning'
+        - $ref: '#/components/schemas/GenericSigning'
+        - $ref: '#/components/schemas/RandaoRevealSigning'
+        - $ref: '#/components/schemas/SyncCommitteeMessageSigning'
+        - $ref: '#/components/schemas/SyncCommitteeSelectionProofSigning'
+      discriminator:
+        propertyName: type
+        mapping:
+          AGGREGATION_SLOT: '#/components/schemas/AggregationSlotSigning'
+          ATTESTATION: '#/components/schemas/AttestationSigning'
+          GENERIC: '#/components/schemas/GenericSigning'
+          RANDAO_REVEAL: '#/components/schemas/RandaoRevealSigning'
+          SYNC_COMMITTEE_MESSAGE: '#/components/schemas/SyncCommitteeMessageSigning'
+          SYNC_COMMITTEE_SELECTION_PROOF: '#/components/schemas/SyncCommitteeSelectionProofSigning'
+    SigningData:
+      type: object
+      additionalProperties: false
+      properties:
+        object_root:
+          $ref: '#/components/schemas/Root'
+        domain:
+          $ref: '#/components/schemas/Root'
+      required:
+        - object_root
+        - domain
+    GenericSigning:
+      type: object
+      description: |
+        Signs an SSZ object root and consensus domain. Signers that implement
+        slashing protection must reject proposer and attester domains here;
+        callers use BLOCK_V2 or ATTESTATION for those duties so the signer can
+        evaluate the structured slashable data.
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          description: Signing request type.
+          enum:
+            - GENERIC
+        signingRoot:
+          allOf:
+            - $ref: '#/components/schemas/Root'
+          description: Optional signing root for verification. The signer must recompute it from signing_data when present.
+        signing_data:
+          $ref: '#/components/schemas/SigningData'
+      required:
+        - type
+        - signing_data
+    BatchSigningRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        identifiers:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          description: BLS public keys that must sign the same signing request. Decoded keys must be unique regardless of hexadecimal casing.
+          items:
+            $ref: '#/components/schemas/PublicKey'
+        signing_request:
+          $ref: '#/components/schemas/BatchableSigningRequest'
+      required:
+        - identifiers
+        - signing_request
+    BatchSigningSuccess:
+      type: object
+      additionalProperties: false
+      properties:
+        identifier:
+          $ref: '#/components/schemas/PublicKey'
+        signature:
+          $ref: '#/components/schemas/Signature'
+      required:
+        - identifier
+        - signature
+    SigningError:
+      type: object
+      properties:
+        code:
+          type: integer
+          minimum: 400
+          maximum: 599
+        message:
+          type: string
+      required:
+        - code
+        - message
+    BatchSigningFailure:
+      type: object
+      additionalProperties: false
+      properties:
+        identifier:
+          $ref: '#/components/schemas/PublicKey'
+        error:
+          $ref: '#/components/schemas/SigningError'
+      required:
+        - identifier
+        - error
+    BatchSigningResult:
+      oneOf:
+        - $ref: '#/components/schemas/BatchSigningSuccess'
+        - $ref: '#/components/schemas/BatchSigningFailure'
+    BatchSigningResponse:
+      type: array
+      minItems: 1
+      description: Results in the same order as the request identifiers.
+      items:
+        $ref: '#/components/schemas/BatchSigningResult'
     Signing:
       type: "object"
       properties:

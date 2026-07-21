@@ -1,0 +1,93 @@
+components:
+  schemas:
+    DistributedParticipant:
+      type: object
+      properties:
+        id:
+          $ref: '../signing/schemas.yaml#/components/schemas/Uint64'
+        endpoint:
+          type: string
+          format: uri
+          pattern: '^https://'
+          description: HTTPS origin of the participant, without a path, query, or fragment.
+      required:
+        - id
+        - endpoint
+    DistributedAccount:
+      type: object
+      properties:
+        participant_id:
+          allOf:
+            - $ref: '../signing/schemas.yaml#/components/schemas/Uint64'
+          description: ID of the participant returning this account object.
+        public_key:
+          allOf:
+            - $ref: '../signing/schemas.yaml#/components/schemas/PublicKey'
+          description: Component public key held by the participant returning this object.
+        composite_public_key:
+          allOf:
+            - $ref: '../signing/schemas.yaml#/components/schemas/PublicKey'
+          description: Validator public key shared by all participants in this distributed account.
+        signing_threshold:
+          $ref: '../signing/schemas.yaml#/components/schemas/Uint64'
+        participants:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DistributedParticipant'
+      required:
+        - participant_id
+        - public_key
+        - composite_public_key
+        - signing_threshold
+        - participants
+    DistributedAccountsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/DistributedAccount'
+    PartialSigningResponse:
+      type: object
+      properties:
+        participant_id:
+          $ref: '../signing/schemas.yaml#/components/schemas/Uint64'
+        signing_root:
+          $ref: '../signing/schemas.yaml#/components/schemas/Root'
+        signature:
+          allOf:
+            - $ref: '../signing/schemas.yaml#/components/schemas/Signature'
+          description: Partial signature made with this participant's component key.
+      required:
+        - participant_id
+        - signing_root
+        - signature
+    DistributedBatchSigningSuccess:
+      type: object
+      additionalProperties: false
+      properties:
+        identifier:
+          allOf:
+            - $ref: '../signing/schemas.yaml#/components/schemas/PublicKey'
+          description: Composite validator public key from the request.
+        participant_id:
+          $ref: '../signing/schemas.yaml#/components/schemas/Uint64'
+        signing_root:
+          $ref: '../signing/schemas.yaml#/components/schemas/Root'
+        signature:
+          allOf:
+            - $ref: '../signing/schemas.yaml#/components/schemas/Signature'
+          description: Partial signature made with the component key for this account.
+      required:
+        - identifier
+        - participant_id
+        - signing_root
+        - signature
+    DistributedBatchSigningResult:
+      oneOf:
+        - $ref: '#/components/schemas/DistributedBatchSigningSuccess'
+        - $ref: '../signing/schemas.yaml#/components/schemas/BatchSigningFailure'
+    DistributedBatchSigningResponse:
+      type: array
+      minItems: 1
+      description: Results in the same order as the composite public keys in the request.
+      items:
+        $ref: '#/components/schemas/DistributedBatchSigningResult'

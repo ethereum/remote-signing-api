@@ -18,12 +18,24 @@ servers:
         default: "https://public-mainnet-node.ethereum.org"
 
 tags:
+  - name: Distributed Signing
+    description: Optional endpoints for discovering threshold accounts and obtaining partial BLS signatures.
   - name: Public Key
     description: Endpoint for listing BLS Public Keys.
   - name: Signing
     description: Endpoint for signing data using specified BLS public key.
 
 paths:
+  /api/v1/eth2/distributed/accounts:
+    $ref: './distributed/paths/accounts.yaml'
+  /api/v1/eth2/distributed/accounts/{identifier}:
+    $ref: './distributed/paths/account.yaml'
+  /api/v1/eth2/distributed/sign:
+    $ref: './distributed/paths/sign_batch.yaml'
+  /api/v1/eth2/distributed/sign/{identifier}:
+    $ref: './distributed/paths/sign.yaml'
+  /api/v1/eth2/sign:
+    $ref: './signing/paths/sign_batch.yaml'
   /api/v1/eth2/sign/{identifier}:
     $ref: './signing/paths/sign.yaml'
   /api/v1/eth2/publicKeys:
