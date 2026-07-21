@@ -16,6 +16,15 @@ in place to restrict access only from validator clients. At the moment, only JSO
 
 The goal of this specification is to promote interoperability between various validator client implementations and remote signing services.
 
+The API has two compatible profiles:
+
+- the existing remote signer profile returns complete validator signatures to validator clients; and
+- the optional [distributed signing profile](distributed-signing.md) allows a remote signer coordinator to discover threshold participants, request partial signatures, recover a complete signature, and expose the existing remote signer profile to validator clients.
+
+The signing API also supports an optional batch endpoint for applying one common signing request to multiple validator keys. Batch responses retain request order and report success or failure independently for each key.
+
+The optional `GENERIC` signing type accepts an SSZ `object_root` and consensus `domain`. Signers use the structured `ATTESTATION` and `BLOCK_V2` types when slashing protection must inspect the signed duty.
+
 ## Client support
 | Validator Clients | Status    |
 | ----------------- | --------- |
@@ -76,6 +85,13 @@ and run with
 
 ```
 spectral lint remote-signing-oapi.yaml
+```
+
+The same validation used by CI can be run without a global install:
+
+```
+npx --yes @stoplight/spectral-cli lint remote-signing-oapi.yaml
+npx --yes swagger-cli bundle remote-signing-oapi.yaml -r -t yaml > /dev/null
 ```
 
 ## Releasing

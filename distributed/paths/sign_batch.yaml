@@ -1,0 +1,40 @@
+post:
+  tags:
+    - 'Distributed Signing'
+  summary: 'Creates partial signatures for multiple distributed BLS accounts'
+  description: |
+    Applies one common signing request to multiple composite validator public
+    keys hosted by this participant. Results are returned in request order and
+    each successful result contains this account's participant ID.
+  operationId: 'DISTRIBUTED_SIGN_BATCH'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../signing/schemas.yaml#/components/schemas/BatchSigningRequest'
+        example:
+          identifiers:
+            - '0x97f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb'
+          signing_request:
+            type: 'GENERIC'
+            signingRoot: '0xf5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b'
+            signing_data:
+              object_root: '0x0000000000000000000000000000000000000000000000000000000000000000'
+              domain: '0x0000000000000000000000000000000000000000000000000000000000000000'
+  responses:
+    '200':
+      description: 'Ordered per-account partial-signing results'
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas.yaml#/components/schemas/DistributedBatchSigningResponse'
+          example:
+            - identifier: '0x97f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb'
+              participant_id: '1'
+              signing_root: '0xf5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b'
+              signature: '0x832aa3a6a5b6833e2cd87588ed18645484670b001e8f1553203da74625adb99b08f0c435af5ebe2a2c6340bf309e72f503bf7173a6db728cfe4917c4584cabd5bf819a5ea9cf42bfe5f5f20ec4b95056a712f9e5a71cfedab8e3db29c9f53889'
+    '400':
+      description: 'Bad request format'
+    '500':
+      description: 'Internal server error before per-account processing could complete'

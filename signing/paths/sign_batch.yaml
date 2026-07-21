@@ -1,0 +1,56 @@
+post:
+  tags:
+    - 'Signing'
+  summary: 'Signs the same data for multiple BLS public keys'
+  description: |
+    Signs one common signing request for each public key in identifiers. The
+    response contains one result per identifier in request order. An individual
+    key failure is represented in its result and does not fail other keys.
+  operationId: 'SIGN_BATCH'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas.yaml#/components/schemas/BatchSigningRequest'
+        example:
+          identifiers:
+            - '0x989d34725a2bfc3f15105f3f5fc8741f436c25ee1ee4f948e425d6bcb8c56bce6e06c269635b7e985a7ffa639e2409bf'
+            - '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+          signing_request:
+            type: 'ATTESTATION'
+            signingRoot: '0x548c9a015f4c96cb8b1ddbbdfca85846f85bf9f344a434c140f378cdfb5341f0'
+            fork_info:
+              fork:
+                previous_version: '0x00000001'
+                current_version: '0x00000001'
+                epoch: '1'
+              genesis_validators_root: '0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673'
+            attestation:
+              slot: '32'
+              index: '0'
+              beacon_block_root: '0xb2eedb01adbd02c828d5eec09b4c70cbba12ffffba525ebf48aca33028e8ad89'
+              source:
+                epoch: '0'
+                root: '0x0000000000000000000000000000000000000000000000000000000000000000'
+              target:
+                epoch: '0'
+                root: '0xb2eedb01adbd02c828d5eec09b4c70cbba12ffffba525ebf48aca33028e8ad89'
+  responses:
+    '200':
+      description: 'Ordered per-key signing results'
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas.yaml#/components/schemas/BatchSigningResponse'
+          example:
+            - identifier: '0x989d34725a2bfc3f15105f3f5fc8741f436c25ee1ee4f948e425d6bcb8c56bce6e06c269635b7e985a7ffa639e2409bf'
+              signature: '0xb3baa751d0a9132cfe93e4e3d5ff9075111100e3789dca219ade5a24d27e19d16b3353149da1833e9b691bb38634e8dc04469be7032132906c927d7e1a49b414730612877bc6b2810c8f202daf793d1ab0d6b5cb21d52f9e52e883859887a5d9'
+            - identifier: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+              error:
+                code: 412
+                message: 'Signing operation failed due to slashing protection rules'
+    '400':
+      description: 'Bad request format'
+    '500':
+      description: 'Internal server error before per-key processing could complete'

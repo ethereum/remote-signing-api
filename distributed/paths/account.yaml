@@ -1,0 +1,28 @@
+get:
+  tags:
+    - 'Distributed Signing'
+  summary: 'Gets one distributed BLS account'
+  description: "Returns this participant's account view for the composite validator public key."
+  operationId: 'DISTRIBUTED_ACCOUNT'
+  parameters:
+    - name: 'identifier'
+      in: 'path'
+      required: true
+      description: 'Composite BLS validator public key in hex format'
+      schema:
+        $ref: '../../signing/schemas.yaml#/components/schemas/PublicKey'
+  responses:
+    '200':
+      description: 'Distributed account metadata'
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas.yaml#/components/schemas/DistributedAccount'
+    '400':
+      description: 'Bad request format'
+    '403':
+      description: 'The coordinator is not authorized to view this account'
+    '404':
+      description: 'Composite public key not found'
+    '500':
+      description: 'Internal server error'

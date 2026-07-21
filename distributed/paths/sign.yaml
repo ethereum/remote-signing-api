@@ -1,0 +1,51 @@
+post:
+  tags:
+    - 'Distributed Signing'
+  summary: 'Creates a partial signature for a distributed BLS account'
+  description: |
+    Resolves the composite validator public key to this participant's component
+    key, recomputes the signing root, applies authorization and slashing
+    protection, and returns one partial BLS signature.
+  operationId: 'DISTRIBUTED_SIGN'
+  parameters:
+    - name: 'identifier'
+      in: 'path'
+      required: true
+      description: 'Composite BLS validator public key in hex format'
+      schema:
+        $ref: '../../signing/schemas.yaml#/components/schemas/PublicKey'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../signing/schemas.yaml#/components/schemas/SigningRequest'
+        example:
+          type: 'GENERIC'
+          signingRoot: '0xf5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b'
+          signing_data:
+            object_root: '0x0000000000000000000000000000000000000000000000000000000000000000'
+            domain: '0x0000000000000000000000000000000000000000000000000000000000000000'
+  responses:
+    '200':
+      description: "Partial signature made with this participant's component key"
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas.yaml#/components/schemas/PartialSigningResponse'
+          example:
+            participant_id: '1'
+            signing_root: '0xf5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b'
+            signature: '0x832aa3a6a5b6833e2cd87588ed18645484670b001e8f1553203da74625adb99b08f0c435af5ebe2a2c6340bf309e72f503bf7173a6db728cfe4917c4584cabd5bf819a5ea9cf42bfe5f5f20ec4b95056a712f9e5a71cfedab8e3db29c9f53889'
+    '400':
+      description: 'Bad request format or signing root mismatch'
+    '403':
+      description: 'The coordinator is not authorized to sign with this account'
+    '404':
+      description: 'Composite public key not found'
+    '412':
+      description: 'Signing operation failed due to slashing protection rules'
+    '500':
+      description: 'Internal server error'
+    '503':
+      description: 'The component key is temporarily unavailable'

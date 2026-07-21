@@ -1,0 +1,34 @@
+get:
+  tags:
+    - 'Distributed Signing'
+  summary: 'Lists distributed BLS accounts'
+  description: |
+    Returns the distributed accounts hosted by this participant and visible to
+    the authenticated coordinator. Each object contains this server's component
+    key and the common participant map, threshold, and composite validator key.
+  operationId: 'DISTRIBUTED_ACCOUNT_LIST'
+  responses:
+    '200':
+      description: 'Distributed accounts hosted by this participant'
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas.yaml#/components/schemas/DistributedAccountsResponse'
+          example:
+            - participant_id: '1'
+              public_key: '0x89ece308f9d1f0131765212deca99697b112d61f9be9a5f1f3780a51335b3ff981747a0b2ca2179b96d2c0c9024e5224'
+              composite_public_key: '0x97f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb'
+              signing_threshold: '2'
+              participants:
+                - id: '1'
+                  endpoint: 'https://signer-1.example.com'
+                - id: '2'
+                  endpoint: 'https://signer-2.example.com'
+                - id: '3'
+                  endpoint: 'https://signer-3.example.com'
+    '400':
+      description: 'Bad request format'
+    '403':
+      description: 'The coordinator is not authorized to list accounts'
+    '500':
+      description: 'Internal server error'
