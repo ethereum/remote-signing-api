@@ -78,6 +78,22 @@ and run with
 spectral lint remote-signing-oapi.yaml
 ```
 
+### Verifying signing example vectors
+
+The `GENERIC` signing request carries a `merkle_root` and a `domain` instead of a typed object, so its
+examples are checkable arithmetic rather than illustration. `scripts/verify_signing_examples.py` recomputes
+them and fails if any drift:
+
+```
+pip install pyyaml
+python scripts/verify_signing_examples.py
+```
+
+It checks that each `GENERIC` example satisfies `signingRoot == sha256(merkle_root || domain)`, that every
+slashable domain type carries a slashing-protection container which proves against `merkle_root`, and that
+each `GENERIC` example produces the same signature as the typed example it generalises. CI runs it on every
+push and pull request.
+
 ## Releasing
 
 1. Create and push a tag

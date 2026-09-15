@@ -36,6 +36,7 @@ post:
             - $ref: '../schemas.yaml#/components/schemas/PayloadAttestationMessageSigning'
             - $ref: '../schemas.yaml#/components/schemas/ProposerPreferencesSigning'
             - $ref: '../schemas.yaml#/components/schemas/BuilderRequestAuthSigning'
+            - $ref: '../schemas.yaml#/components/schemas/GenericSigning'
           discriminator:
             propertyName: type
             mapping:
@@ -57,6 +58,7 @@ post:
               PAYLOAD_ATTESTATION_MESSAGE: '../schemas.yaml#/components/schemas/PayloadAttestationMessageSigning'
               PROPOSER_PREFERENCES: '../schemas.yaml#/components/schemas/ProposerPreferencesSigning'
               BUILDER_REQUEST_AUTH: '../schemas.yaml#/components/schemas/BuilderRequestAuthSigning'
+              GENERIC: '../schemas.yaml#/components/schemas/GenericSigning'
         examples:
           BLOCK_V2 (GLOAS):
             value:
@@ -1001,6 +1003,79 @@ post:
                   data: "0x68747470733a2f2f6275696c6465722e6578616d706c652e6f7267"
                   slot: "32"
 
+          GENERIC (DOMAIN_BEACON_ATTESTER):
+            summary: 'Generic request for an attestation'
+            description: |
+              Produces exactly the same signature as the `ATTESTATION` example above.
+              `merkle_root` is `hash_tree_root(AttestationData)` and `domain` is the attester domain for
+              the fork the attestation belongs to, so `sha256(merkle_root || domain)` reproduces that
+              example's `signingRoot`. The attestation is carried for slashing protection; because a
+              `PHASE0`..`GLOAS` attestation signs `AttestationData` directly, the proof is empty.
+            value:
+              type: "GENERIC"
+              merkle_root: "0x9da60a55ce18b9b1e5875795118ab978f2ca5c0b907bdbd1b8b237a73dbeece6"
+              domain: "0x01000000e7a75d5a9f3f331a669f33fe87d35b0735dce47180b272ed244e3053"
+              signingRoot: "0x548c9a015f4c96cb8b1ddbbdfca85846f85bf9f344a434c140f378cdfb5341f0"
+              fork_info:
+                fork:
+                  previous_version: "0x00000001"
+                  current_version: "0x00000001"
+                  epoch: "1"
+                genesis_validators_root: "0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673"
+              attestation:
+                slot: "32"
+                index: "0"
+                beacon_block_root: "0xb2eedb01adbd02c828d5eec09b4c70cbba12ffffba525ebf48aca33028e8ad89"
+                source:
+                  epoch: "0"
+                  root: "0x0000000000000000000000000000000000000000000000000000000000000000"
+                target:
+                  epoch: "0"
+                  root: "0xb2eedb01adbd02c828d5eec09b4c70cbba12ffffba525ebf48aca33028e8ad89"
+                proof:
+                  generalized_index: "1"
+                  merkle_proof: []
+
+          GENERIC (DOMAIN_BEACON_PROPOSER):
+            summary: 'Generic request for a block proposal'
+            description: |
+              Produces exactly the same signature as the `BLOCK_V2 (GLOAS)` example above.
+              `hash_tree_root(BeaconBlock) == hash_tree_root(BeaconBlockHeader)`, so the header both
+              hashes to `merkle_root` and carries the `slot` the signer needs for slashing protection,
+              and the proof is empty.
+            value:
+              type: "GENERIC"
+              merkle_root: "0x037d03a71ec93abd268eb24796860dc633721e40d333a64019569880eab8da7a"
+              domain: "0x00000000e7a75d5a9f3f331a669f33fe87d35b0735dce47180b272ed244e3053"
+              signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
+              fork_info:
+                fork:
+                  previous_version: "0x00000001"
+                  current_version: "0x00000001"
+                  epoch: "1"
+                genesis_validators_root: "0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673"
+              block_header:
+                slot: "0"
+                proposer_index: "4666673844721362956"
+                parent_root: "0x367cbd40ac7318427aadb97345a91fa2e965daf3158d7f1846f1306305f41bef"
+                state_root: "0xfd18cf40cc907a739be483f1ca0ee23ad65cdd3df23205eabc6d660a75d1f54e"
+                body_root: "0xa759d8029a69d4fdd8b3996086e9722983977e4efc1f12f4098ea3d93e868a6b"
+                proof:
+                  generalized_index: "1"
+                  merkle_proof: []
+
+          GENERIC (non-slashable domain):
+            summary: 'Generic request for a non-slashable object'
+            description: |
+              Produces exactly the same signature as the `RANDAO_REVEAL` example above. The domain type
+              `0x02000000` (`DOMAIN_RANDAO`) is not slashable, so no slashing-protection container is
+              carried and `fork_info` can be omitted entirely. This is the minimal `GENERIC` request.
+            value:
+              type: "GENERIC"
+              merkle_root: "0x0300000000000000000000000000000000000000000000000000000000000000"
+              domain: "0x02000000e7a75d5a9f3f331a669f33fe87d35b0735dce47180b272ed244e3053"
+              signingRoot: "0x3d047c51a8b03630781dc4c5519c17f7de87174246ff2deed0f195c6c775f91e"
+
   responses:
     '200':
       description: 'hex encoded string of signature'
@@ -1017,6 +1092,13 @@ post:
     '404':
       description: 'Public Key not found'
     '400':
-      description: 'Bad request format'
+      description: |
+        Bad request format. For a `GENERIC` request this also covers a slashable domain type sent without
+        the slashing-protection container the signer requires, and a `proof` that does not verify against
+        `merkle_root`.
+    '501':
+      description: |
+        Signing request type not implemented by this signer. Signers are not required to implement
+        `GENERIC`, and a validator client can use this response to fall back to a typed request.
     '500':
       description: 'Internal server error'
