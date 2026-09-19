@@ -18,3 +18,13 @@ jobs:
         uses: mpetrunic/swagger-cli-action@v1.0.0
         with:
           command: "bundle ./remote-signing-oapi.yaml -r -t yaml -o ./bundle.yaml"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Verify signing example vectors
+        run: |
+          pip install pyyaml
+          python scripts/verify_signing_examples.py

@@ -1,21 +1,23 @@
 components:
   schemas:
+    ForkInfo:
+      type: object
+      properties:
+        fork:
+          $ref: '#/components/schemas/Fork'
+          description: Fork information
+        genesis_validators_root:
+          type: "string"
+          description: Genesis Validators Root in hex string format.
+          example: '0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673'
+      required:
+        - fork
+        - genesis_validators_root
     Signing:
       type: "object"
       properties:
         fork_info:
-          type: object
-          properties:
-            fork:
-              $ref: '#/components/schemas/Fork'
-              description: Fork information
-            genesis_validators_root:
-              type: "string"
-              description: Genesis Validators Root in hex string format.
-              example: '0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673'
-          required:
-            - fork
-            - genesis_validators_root
+          $ref: '#/components/schemas/ForkInfo'
         signingRoot:
           type: "string"
           description: 'signing root for optional verification if field present'
@@ -1302,3 +1304,130 @@ components:
         sync_committee_signature:
           type: string
           description: Bytes96 hexadecimal
+    GenericSigningProof:
+      type: object
+      description: |
+        Merkle proof binding a slashing-protection container to the `merkle_root` of a generic signing request.
+
+        The proof demonstrates that `hash_tree_root(container)` sits at `generalized_index` inside the
+        Merkle tree rooted at `merkle_root`. A signer MUST reject the request if the proof does not verify.
+
+        At every fork up to and including Gloas the signed object *is* the container the signer needs
+        (`hash_tree_root(BeaconBlock) == hash_tree_root(BeaconBlockHeader)`, and an attestation signs
+        `AttestationData` directly), so `generalized_index` is `1` and `merkle_proof` is empty. The field
+        exists so that a future fork which nests these containers more deeply does not require a new
+        signing request type.
+      properties:
+        generalized_index:
+          type: string
+          format: "uint64"
+          description: |
+            Generalized index of the container within the tree rooted at `merkle_root`.
+            `1` means the container is the signed object itself, in which case `merkle_proof` MUST be empty
+            and `hash_tree_root(container)` MUST equal `merkle_root`.
+          example: '1'
+        merkle_proof:
+          type: array
+          description: |
+            Sibling hashes ordered from the container's sibling up to the child of `merkle_root`.
+            MUST contain exactly `floor(log2(generalized_index))` entries.
+          items:
+            type: string
+            pattern: "^0x[a-fA-F0-9]{64}$"
+            description: Bytes32 hexadecimal
+            example: '0x0000000000000000000000000000000000000000000000000000000000000000'
+      required:
+        - generalized_index
+        - merkle_proof
+    GenericAttestationData:
+      description: |
+        `AttestationData` for the attestation being signed, together with a proof binding it to `merkle_root`.
+        Required on a `GENERIC` request whose domain type is `0x01000000` (`DOMAIN_BEACON_ATTESTER`)
+        when the signer has slashing protection enabled.
+      allOf:
+        - $ref: '#/components/schemas/AttestationData'
+        - type: object
+          properties:
+            proof:
+              $ref: '#/components/schemas/GenericSigningProof'
+          required:
+            - proof
+    GenericBlockHeader:
+      description: |
+        `BeaconBlockHeader` for the block being proposed, together with a proof binding it to `merkle_root`.
+        Required on a `GENERIC` request whose domain type is `0x00000000` (`DOMAIN_BEACON_PROPOSER`)
+        when the signer has slashing protection enabled.
+      allOf:
+        - $ref: '#/components/schemas/BeaconBlockHeader'
+        - type: object
+          properties:
+            proof:
+              $ref: '#/components/schemas/GenericSigningProof'
+          required:
+            - proof
+    GenericSigning:
+      description: |
+        Signs an arbitrary object given its hash tree root and a caller-supplied signature domain.
+
+        Every signature this API produces is `BLS.Sign(sk, hash_tree_root(SigningData(merkle_root, domain)))`,
+        which reduces to `sha256(merkle_root || domain)`. A `GENERIC` request supplies those two values
+        directly, so a signer can serve signing requests for objects and forks it has no schema for.
+
+        Because the caller supplies `domain`, the signer does not derive it from `fork_info` and does not
+        need to know the object's type. The first four bytes of `domain` are the `DomainType`, which is
+        what the signer uses to decide whether slashing protection applies:
+
+        | Domain type  | Constant                 | Slashing protection |
+        | ------------ | ------------------------ | ------------------- |
+        | `0x00000000` | `DOMAIN_BEACON_PROPOSER` | `block_header` required |
+        | `0x01000000` | `DOMAIN_BEACON_ATTESTER` | `attestation` required |
+        | anything else | -                       | not applicable |
+
+        A signer with slashing protection enabled MUST reject a request for a slashable domain type that
+        omits the corresponding container, and MUST reject one whose `proof` does not verify against
+        `merkle_root`. A signer MUST NOT use `merkle_root` alone as the basis for a slashing protection
+        record. A signer with slashing protection disabled MAY accept such a request without the container.
+
+        Signers are not required to implement this request type; one that does not MUST respond `501`.
+      type: object
+      properties:
+        type:
+          type: "string"
+          description: Signing Request type
+          enum:
+            - 'GENERIC'
+        merkle_root:
+          type: "string"
+          pattern: "^0x[a-fA-F0-9]{64}$"
+          description: |
+            `hash_tree_root` of the object being signed, as a Bytes32 hexadecimal string.
+          example: '0x9da60a55ce18b9b1e5875795118ab978f2ca5c0b907bdbd1b8b237a73dbeece6'
+        domain:
+          type: "string"
+          pattern: "^0x[a-fA-F0-9]{64}$"
+          description: |
+            The 32-byte signature domain, as computed by `compute_domain`. The first four bytes are the
+            `DomainType` and the remaining 28 bytes are the truncated fork data root.
+          example: '0x01000000e7a75d5a9f3f331a669f33fe87d35b0735dce47180b272ed244e3053'
+        signingRoot:
+          type: "string"
+          pattern: "^0x[a-fA-F0-9]{64}$"
+          description: |
+            Signing root for optional verification if field present. When present it MUST equal
+            `sha256(merkle_root || domain)`.
+          example: '0x548c9a015f4c96cb8b1ddbbdfca85846f85bf9f344a434c140f378cdfb5341f0'
+        fork_info:
+          allOf:
+            - $ref: '#/components/schemas/ForkInfo'
+          description: |
+            Optional. Not used to derive `domain`, which the caller supplies. Signers MAY use it to
+            namespace slashing protection records by fork, and to validate the shape of `proof` at the
+            fork the request belongs to.
+        attestation:
+          $ref: '#/components/schemas/GenericAttestationData'
+        block_header:
+          $ref: '#/components/schemas/GenericBlockHeader'
+      required:
+        - type
+        - merkle_root
+        - domain
