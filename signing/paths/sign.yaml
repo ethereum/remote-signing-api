@@ -61,7 +61,7 @@ post:
           BLOCK_V2 (GLOAS):
             value:
               type: "BLOCK_V2"
-              signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
+              signing_root: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -79,7 +79,7 @@ post:
           BLOCK_V2 (FULU):
             value:
               type: "BLOCK_V2"
-              signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
+              signing_root: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -97,7 +97,7 @@ post:
           BLOCK_V2 (ELECTRA):
             value:
               type: "BLOCK_V2"
-              signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
+              signing_root: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -115,7 +115,7 @@ post:
           BLOCK_V2 (DENEB):
             value:
               type: "BLOCK_V2"
-              signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
+              signing_root: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -133,7 +133,7 @@ post:
           BLOCK_V2 (CAPELLA):
             value:
               type: "BLOCK_V2"
-              signingRoot: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
+              signing_root: "0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -151,7 +151,7 @@ post:
           BLOCK_V2 (BELLATRIX):
             value:
               type: "BLOCK_V2"
-              signingRoot: "0x26d0ee0b6c2261cd6010112a024de4f3d2e1e9844d11d60b057fac344c745464"
+              signing_root: "0x26d0ee0b6c2261cd6010112a024de4f3d2e1e9844d11d60b057fac344c745464"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -169,7 +169,7 @@ post:
           BLOCK_V2 (ALTAIR):
             value:
               type: "BLOCK_V2"
-              signingRoot: "0xcd9b9a5884d4ba2a42d19570421f0625e9841e905fcca363c371ea311dd923bc"
+              signing_root: "0xcd9b9a5884d4ba2a42d19570421f0625e9841e905fcca363c371ea311dd923bc"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -328,7 +328,7 @@ post:
           BLOCK_V2 (PHASE 0):
             value:
               type: "BLOCK_V2"
-              signingRoot: "0x23181cd23aa0ce5aed8628d4efc404e173ac4b72943ddb0e60129b4884aa8a4f"
+              signing_root: "0x23181cd23aa0ce5aed8628d4efc404e173ac4b72943ddb0e60129b4884aa8a4f"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -484,34 +484,34 @@ post:
           BLOCK (DEPRECATED):
             value:
               type: "BLOCK"
-              signingRoot: '0xf6ab1a0a4a712f544f99b53cb8c2c2625859a134fb5c9f1b2cb96e13dd88bd62'
+              signing_root: '0xf6ab1a0a4a712f544f99b53cb8c2c2625859a134fb5c9f1b2cb96e13dd88bd62'
               fork_info:
                 fork:
-                  previousVersion: '0x00000001'
-                  currentVersion: '0x00000001'
+                  previous_version: '0x00000001'
+                  current_version: '0x00000001'
                   epoch: "1"
                 genesis_validators_root: '0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673'
               block:
                 slot: "0"
-                proposerIndex: "5"
-                parentRoot: '0xb2eedb01adbd02c828d5eec09b4c70cbba12ffffba525ebf48aca33028e8ad89'
-                stateRoot: '0x0000000000000000000000000000000000000000000000000000000000000000'
+                proposer_index: "5"
+                parent_root: '0xb2eedb01adbd02c828d5eec09b4c70cbba12ffffba525ebf48aca33028e8ad89'
+                state_root: '0x0000000000000000000000000000000000000000000000000000000000000000'
                 body:
-                  randaoReveal: '0xa686652aed2617da83adebb8a0eceea24bb0d2ccec9cd691a902087f90db16aa5c7b03172a35e874e07e3b60c5b2435c0586b72b08dfe5aee0ed6e5a2922b956aa88ad0235b36dfaa4d2255dfeb7bed60578d982061a72c7549becab19b3c12f'
-                  eth1Data:
-                    depositRoot: '0x6a0f9d6cb0868daa22c365563bb113b05f7568ef9ee65fdfeb49a319eaf708cf'
-                    depositCount: 8
-                    blockHash: '0x4242424242424242424242424242424242424242424242424242424242424242'
+                  randao_reveal: '0xa686652aed2617da83adebb8a0eceea24bb0d2ccec9cd691a902087f90db16aa5c7b03172a35e874e07e3b60c5b2435c0586b72b08dfe5aee0ed6e5a2922b956aa88ad0235b36dfaa4d2255dfeb7bed60578d982061a72c7549becab19b3c12f'
+                  eth1_data:
+                    deposit_root: '0x6a0f9d6cb0868daa22c365563bb113b05f7568ef9ee65fdfeb49a319eaf708cf'
+                    deposit_count: 8
+                    block_hash: '0x4242424242424242424242424242424242424242424242424242424242424242'
                   graffiti: '0x74656b752f76302e31322e31302d6465762d6338316361363235000000000000'
-                  proposerSlashings: [ ]
-                  attesterSlashings: [ ]
+                  proposer_slashings: [ ]
+                  attester_slashings: [ ]
                   attestations: [ ]
                   deposits: [ ]
-                  voluntaryExits: [ ]
+                  voluntary_exits: [ ]
           ATTESTATION:
             value:
               type: "ATTESTATION"
-              signingRoot: "0x548c9a015f4c96cb8b1ddbbdfca85846f85bf9f344a434c140f378cdfb5341f0"
+              signing_root: "0x548c9a015f4c96cb8b1ddbbdfca85846f85bf9f344a434c140f378cdfb5341f0"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -532,11 +532,11 @@ post:
           AGGREGATION_SLOT:
             value:
               type: 'AGGREGATION_SLOT'
-              signingRoot: '0x1fb90dd6e8b2670e6949347bc4eaacd37f9b6cc6e42c559973e362c800e853b9'
+              signing_root: '0x1fb90dd6e8b2670e6949347bc4eaacd37f9b6cc6e42c559973e362c800e853b9'
               fork_info:
                 fork:
-                  previousVersion: '0x00000001'
-                  currentVersion: '0x00000001'
+                  previous_version: '0x00000001'
+                  current_version: '0x00000001'
                   epoch: "1"
                 genesis_validators_root: '0x04700007fabc8282644aed6d1c7c9e21d38a03a0c4ba193f3afe428824b3a673'
               aggregation_slot:
@@ -544,7 +544,7 @@ post:
           AGGREGATE_AND_PROOF_V2 (GLOAS):
             value:
               type: "AGGREGATE_AND_PROOF_V2"
-              signingRoot: "0xcbc14a290b4a07a5c9302b2d7467fe7694a5dc2c93167f6a1e5662dd06b8501a"
+              signing_root: "0xcbc14a290b4a07a5c9302b2d7467fe7694a5dc2c93167f6a1e5662dd06b8501a"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -573,7 +573,7 @@ post:
           AGGREGATE_AND_PROOF_V2 (FULU):
             value:
               type: "AGGREGATE_AND_PROOF_V2"
-              signingRoot: "0x247535806f76143fe4798427b2a79b85340c1a029a9e08581995b60e4e45c9e0"
+              signing_root: "0x247535806f76143fe4798427b2a79b85340c1a029a9e08581995b60e4e45c9e0"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -602,7 +602,7 @@ post:
           AGGREGATE_AND_PROOF_V2 (ELECTRA):
             value:
               type: "AGGREGATE_AND_PROOF_V2"
-              signingRoot: "0x247535806f76143fe4798427b2a79b85340c1a029a9e08581995b60e4e45c9e0"
+              signing_root: "0x247535806f76143fe4798427b2a79b85340c1a029a9e08581995b60e4e45c9e0"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -631,7 +631,7 @@ post:
           AGGREGATE_AND_PROOF_V2 (DENEB):
             value:
               type: "AGGREGATE_AND_PROOF_V2"
-              signingRoot: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
+              signing_root: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -659,7 +659,7 @@ post:
           AGGREGATE_AND_PROOF_V2 (CAPELLA):
             value:
               type: "AGGREGATE_AND_PROOF_V2"
-              signingRoot: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
+              signing_root: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -687,7 +687,7 @@ post:
           AGGREGATE_AND_PROOF_V2 (BELLATRIX):
             value:
               type: "AGGREGATE_AND_PROOF_V2"
-              signingRoot: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
+              signing_root: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -715,7 +715,7 @@ post:
           AGGREGATE_AND_PROOF_V2 (ALTAIR):
             value:
               type: "AGGREGATE_AND_PROOF_V2"
-              signingRoot: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
+              signing_root: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -743,7 +743,7 @@ post:
           AGGREGATE_AND_PROOF_V2 (PHASE 0):
             value:
               type: "AGGREGATE_AND_PROOF_V2"
-              signingRoot: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
+              signing_root: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -771,7 +771,7 @@ post:
           AGGREGATE_AND_PROOF (DEPRECATED):
             value:
               type: "AGGREGATE_AND_PROOF"
-              signingRoot: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
+              signing_root: "0x8d777156899cb02e0e66217afd832886239752a59a393218f6c603bcf615b4f8"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -798,7 +798,7 @@ post:
           RANDAO_REVEAL:
             value:
               type: "RANDAO_REVEAL"
-              signingRoot: "0x3d047c51a8b03630781dc4c5519c17f7de87174246ff2deed0f195c6c775f91e"
+              signing_root: "0x3d047c51a8b03630781dc4c5519c17f7de87174246ff2deed0f195c6c775f91e"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -811,7 +811,7 @@ post:
           VOLUNTARY_EXIT:
             value:
               type: "VOLUNTARY_EXIT"
-              signingRoot: "0x38e9f1cfe7926ce5366b633b7fc7113129025737394002d2637faaeefc56913d"
+              signing_root: "0x38e9f1cfe7926ce5366b633b7fc7113129025737394002d2637faaeefc56913d"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -825,7 +825,7 @@ post:
           SYNC_COMMITTEE_MESSAGE:
             value:
               type: "SYNC_COMMITTEE_MESSAGE"
-              signingRoot: "0xa6f60df2817ea5b52eed1fefebbad746ef64c6249fc05c90c9e0f520cc75bb95"
+              signing_root: "0xa6f60df2817ea5b52eed1fefebbad746ef64c6249fc05c90c9e0f520cc75bb95"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -839,7 +839,7 @@ post:
           SYNC_COMMITTEE_SELECTION_PROOF:
             value:
               type: "SYNC_COMMITTEE_SELECTION_PROOF"
-              signingRoot: "0x50d85c783ab27c1eb3f3efa914b91cb93ffd677137b15c27ba5bb548306e6963"
+              signing_root: "0x50d85c783ab27c1eb3f3efa914b91cb93ffd677137b15c27ba5bb548306e6963"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -853,7 +853,7 @@ post:
           SYNC_COMMITTEE_CONTRIBUTION_AND_PROOF:
             value:
               type: "SYNC_COMMITTEE_CONTRIBUTION_AND_PROOF"
-              signingRoot: "0xae94702468b584a3b1c422bc1b39cc523d9175ba3b9ac1cccb699c00507cc1a5"
+              signing_root: "0xae94702468b584a3b1c422bc1b39cc523d9175ba3b9ac1cccb699c00507cc1a5"
               fork_info:
                 fork:
                   previous_version: "0x00000001"
@@ -873,7 +873,7 @@ post:
           VALIDATOR_REGISTRATION:
             value:
               type: "VALIDATOR_REGISTRATION"
-              signingRoot: "0xe4d2b3dd1e23807b90af0b1768cc7de12d4353320adb486f1bdaeed6b67009ea"
+              signing_root: "0xe4d2b3dd1e23807b90af0b1768cc7de12d4353320adb486f1bdaeed6b67009ea"
               validator_registration:
                 fee_recipient: "0x6fdfab408c56b6105a76eff5c0435d09fc6ed7a9"
                 gas_limit: "4658411424342975020"
@@ -883,7 +883,7 @@ post:
           DEPOSIT:
             value:
               type: "DEPOSIT"
-              signingRoot: "0x3a49cdd70862ee95fed10e7494a8caa16af1be2f53612fc74dad27260bb2d711"
+              signing_root: "0x3a49cdd70862ee95fed10e7494a8caa16af1be2f53612fc74dad27260bb2d711"
               deposit:
                 pubkey: "0x8f82597c919c056571a05dfe83e6a7d32acf9ad8931be04d11384e95468cd68b40129864ae12745f774654bbac09b057"
                 withdrawal_credentials: "0x39722cbbf8b91a4b9045c5e6175f1001eac32f7fcd5eccda5c6e62fc4e638508"

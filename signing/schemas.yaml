@@ -16,9 +16,14 @@ components:
           required:
             - fork
             - genesis_validators_root
-        signingRoot:
+        signing_root:
           type: "string"
           description: 'signing root for optional verification if field present'
+          example: '0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc'
+        signingRoot:
+          type: "string"
+          deprecated: true
+          description: 'Deprecated alias of `signing_root`. Use `signing_root` instead.'
           example: '0xaa2e0c465c1a45d7b6637fcce4ad6ceb71fc12064b548078d619a411f0de8adc'
       required:
         - fork_info
@@ -246,9 +251,13 @@ components:
           description: 'Signing Request type'
           enum:
             - 'DEPOSIT'
-        signingRoot:
+        signing_root:
           description: 'signing root for optional verification if field present'
           type: "string"
+        signingRoot:
+          description: 'Deprecated alias of `signing_root`. Use `signing_root` instead.'
+          type: "string"
+          deprecated: true
         deposit:
           type: object
           properties:
@@ -348,9 +357,13 @@ components:
               description: Signing Request type
               enum:
                 - 'VALIDATOR_REGISTRATION'
-            signingRoot:
+            signing_root:
               description: 'signing root for optional verification if field present'
               type: "string"
+            signingRoot:
+              description: 'Deprecated alias of `signing_root`. Use `signing_root` instead.'
+              type: "string"
+              deprecated: true
             validator_registration:
               "$ref": "#/components/schemas/ValidatorRegistration"
           required:
@@ -518,9 +531,13 @@ components:
               description: Signing Request type
               enum:
                 - 'BUILDER_REQUEST_AUTH'
-            signingRoot:
+            signing_root:
               type: "string"
               description: 'signing root for optional verification if field present'
+            signingRoot:
+              type: "string"
+              deprecated: true
+              description: 'Deprecated alias of `signing_root`. Use `signing_root` instead.'
           required:
             - type
     BuilderRequestAuthRequest:
