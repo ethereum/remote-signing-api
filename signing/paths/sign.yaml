@@ -500,7 +500,7 @@ post:
                   randao_reveal: '0xa686652aed2617da83adebb8a0eceea24bb0d2ccec9cd691a902087f90db16aa5c7b03172a35e874e07e3b60c5b2435c0586b72b08dfe5aee0ed6e5a2922b956aa88ad0235b36dfaa4d2255dfeb7bed60578d982061a72c7549becab19b3c12f'
                   eth1_data:
                     deposit_root: '0x6a0f9d6cb0868daa22c365563bb113b05f7568ef9ee65fdfeb49a319eaf708cf'
-                    deposit_count: 8
+                    deposit_count: "8"
                     block_hash: '0x4242424242424242424242424242424242424242424242424242424242424242'
                   graffiti: '0x74656b752f76302e31322e31302d6465762d6338316361363235000000000000'
                   proposer_slashings: [ ]
